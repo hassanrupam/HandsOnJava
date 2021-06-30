@@ -5,7 +5,7 @@
 #
 #
 # @Purpose: The Purpose of this class is to Create a Stack Like Functionality But Using Array Data Type.
-# To be precise, this Class will be servingb as a Stack Of String using a String Array.
+# To be precise, this Class will be serving as a Stack Of String using a String Array.
 #
 # @Author: Hassan Sakib Afrin
 # @Created: 30-06-2021 11.59 PM
