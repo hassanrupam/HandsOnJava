@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cc5522e4-a0be-4871-847b-49d8c6539438" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1uhS3GItyUL2RtKQyCq5wCpgYsa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="15" />
+    <property name="RequestMappingsPanelWidth1" value="15" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/hassan/main/core/service" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="I:\_Java_Problem_Set\HandsOnJava\trunk\AbcIncProject\src\main\java\com\hassan\main\core\service" />
+      <recent name="I:\_Java_Problem_Set\HandsOnJava\trunk\AbcIncProject\src\main\java\com\hassan\main\core\dao" />
+      <recent name="I:\_Java_Problem_Set\HandsOnJava\trunk\AbcIncProject\src\main\java\com\hassan\main\core\dto" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.hassan.main.core.model.tsk" />
+      <recent name="com.hassan.main.core.model" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.SpringBootDataJpaApplication (1)">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskInformationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abc-inc-project-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hassan.main.core.model.tsk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hassan.main.core.model.tsk" />
+      <option name="MAIN_CLASS_NAME" value="com.hassan.main.core.model.tsk.TaskInformationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskInformationTest.getTskId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abc-inc-project-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hassan.main.core.model.tsk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hassan.main.core.model.tsk" />
+      <option name="MAIN_CLASS_NAME" value="com.hassan.main.core.model.tsk.TaskInformationTest" />
+      <option name="METHOD_NAME" value="getTskId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskInformationTest.getTskProject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abc-inc-project-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hassan.main.core.model.tsk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hassan.main.core.model.tsk" />
+      <option name="MAIN_CLASS_NAME" value="com.hassan.main.core.model.tsk.TaskInformationTest" />
+      <option name="METHOD_NAME" value="getTskProject" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskInformationTest.getTskStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abc-inc-project-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hassan.main.core.model.tsk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hassan.main.core.model.tsk" />
+      <option name="MAIN_CLASS_NAME" value="com.hassan.main.core.model.tsk.TaskInformationTest" />
+      <option name="METHOD_NAME" value="getTskStatus" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskInformationTest.setTskId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abc-inc-project-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hassan.main.core.model.tsk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hassan.main.core.model.tsk" />
+      <option name="MAIN_CLASS_NAME" value="com.hassan.main.core.model.tsk.TaskInformationTest" />
+      <option name="METHOD_NAME" value="setTskId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringBootDataJpaApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="abc-inc-project-management" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.hassan.main.core.SpringBootDataJpaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringBootDataJpaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-boot-data-jpa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bezkoder.spring.datajpa.SpringBootDataJpaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TaskInformationTest" />
+        <item itemvalue="JUnit.TaskInformationTest.getTskStatus" />
+        <item itemvalue="JUnit.TaskInformationTest.getTskId" />
+        <item itemvalue="JUnit.TaskInformationTest.setTskId" />
+        <item itemvalue="JUnit.TaskInformationTest.getTskProject" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc5522e4-a0be-4871-847b-49d8c6539438" name="Default Changelist" comment="" />
+      <created>1625116137388</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625116137388</updated>
+      <workItem from="1625116146027" duration="1941000" />
+      <workItem from="1625127115208" duration="1944000" />
+      <workItem from="1625143523585" duration="1599000" />
+      <workItem from="1625145272314" duration="21310000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
