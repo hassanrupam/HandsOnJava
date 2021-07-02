@@ -27,7 +27,7 @@ public class CommonController {
      *
      * @return HTTP response with data if Found
      */
-    @GetMapping("/getSTatusList")
+    @GetMapping("/getStatusList")
     @ResponseBody
     public ResponseEntity<List<CommonDropDownDTO>> getList(){
         List<CommonDropDownDTO> listOfStatus = statusService.getStatusDropdown();

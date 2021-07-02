@@ -25,7 +25,7 @@ import static com.hassan.main.core.enumurations.ServerActionEnum.*;
  */
 @Service
 public class TaskInformationService extends BaseService implements ITaskInformationService {
-    
+
     //region PRIVATE FIELDS
     private TaskInformation taskInformation = new TaskInformation();
 
