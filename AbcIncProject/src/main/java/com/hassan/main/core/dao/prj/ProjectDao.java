@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -83,12 +84,19 @@ public class ProjectDao implements IProjectDao {
     /**
      * This method serves for Deleting the Project with the Provided id
      *
-     * @param prjId Task Id ( Unique Id For the Project)
+     * @param project Entity For The Project to be Deleted
      * @return The Deleted Information as Project Object
      */
     @Override
-    public Project delete(UUID prjId) {
-        return projectRepository.deleteByPrjId(prjId);
+    @Transactional
+    public Project delete(Project project) {
+        try{
+            projectRepository.deleteByPrjId(project.getPrjId());
+            return project;
+        }catch(Exception e){
+            return null;
+        }
+
     }
     //endregion
 }

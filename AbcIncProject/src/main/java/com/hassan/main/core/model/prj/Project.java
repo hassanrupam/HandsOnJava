@@ -2,6 +2,7 @@ package com.hassan.main.core.model.prj;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,7 +26,7 @@ public class Project implements Serializable {
     @Id
     @GeneratedValue(generator="uuid2")
     @GenericGenerator(name = "uuid2",strategy = "uuid2")
-    @Column(name = "prj_id",columnDefinition = "CHAR(32)",nullable = false, unique = true)
+    @Column(name = "prj_id",columnDefinition = "CHAR(36)",nullable = false, unique = true, length = 36)
     @Type(type = "uuid-char")
     private UUID prjId;
 

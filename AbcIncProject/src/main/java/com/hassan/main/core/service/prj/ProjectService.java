@@ -129,13 +129,14 @@ public class ProjectService extends BaseService implements IProjectService {
 
     @Override
     public CustomServerResponse delete(UUID prjId) {
-        if (!projectDao.getById(prjId).isPresent()) {
+        Optional<Project> projectOptional =  projectDao.getById(prjId);
+        if (!projectOptional.isPresent()) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage("project.notExist", null, null));
             return response;
         }
         try {
-            project = projectDao.delete(prjId);
+            project = projectDao.delete(projectOptional.get());
             response = setResponseAfterAction(project, DELETE.getAction());
         } catch (Exception e) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
@@ -203,7 +204,7 @@ public class ProjectService extends BaseService implements IProjectService {
             response.setStatus(DataValidationEnum.VALID_STATUS.status());
             response.setDto(convertFromEntityToDTO(project));
             response.setSavedIdentity(project.getPrjId());
-            response.setMessage(messageSource.getMessage(successMessageCode, new String[]{project.getPrjName()}, null));
+            response.setMessage(messageSource.getMessage(successMessageCode, new String[]{project.getPrjName(),project.getPrjId().toString()}, null));
         } else {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage(errorMessageCode, null, null));

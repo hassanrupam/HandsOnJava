@@ -26,7 +26,7 @@ public class BaseService {
     protected CustomServerResponse response = new CustomServerResponse(DataValidationEnum.INVALID_STATUS.status(), "");
 
     public CustomServerResponse validateDTO(Object _DTO){
-        CustomServerResponse beanValidationMessageCodes = new CustomServerResponse();
+        CustomServerResponse beanValidationMessageCodes = new CustomServerResponse(DataValidationEnum.INVALID_STATUS.status(), "");
         StringBuilder violationMessageCodes =  new StringBuilder();
 
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -45,6 +45,7 @@ public class BaseService {
             beanValidationMessageCodes.setMessage(violationMessageCodes.toString());
             return beanValidationMessageCodes;
         }
+        beanValidationMessageCodes.setStatus(DataValidationEnum.VALID_STATUS.status());
         return beanValidationMessageCodes;
     }
     //enregion

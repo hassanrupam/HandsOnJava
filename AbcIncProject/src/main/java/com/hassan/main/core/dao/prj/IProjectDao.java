@@ -57,8 +57,8 @@ public interface IProjectDao {
     /**
      * This method serves for Deleting the Project with the Provided id
      *
-     * @param prjId Task Id ( Unique Id For the Project)
+     * @param project TEntity For the Project to be Deleted
      * @return The Deleted Information as Project Object
      */
-    public Project delete(UUID prjId);
+    public Project delete(Project project);
 }
