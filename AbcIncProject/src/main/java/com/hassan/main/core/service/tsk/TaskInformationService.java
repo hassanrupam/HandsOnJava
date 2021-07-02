@@ -25,8 +25,7 @@ import static com.hassan.main.core.enumurations.ServerActionEnum.*;
  */
 @Service
 public class TaskInformationService extends BaseService implements ITaskInformationService {
-
-
+    
     //region PRIVATE FIELDS
     private TaskInformation taskInformation = new TaskInformation();
 
@@ -143,13 +142,14 @@ public class TaskInformationService extends BaseService implements ITaskInformat
      */
     @Override
     public CustomServerResponse delete(Long tskId) {
-        if (!taskInformationDao.getById(tskId).isPresent()) {
+        Optional<TaskInformation> optionalTaskInformation =  taskInformationDao.getById(tskId);
+        if (!optionalTaskInformation.isPresent()) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage("taskInformation.notExist", null, null));
             return response;
         }
         try {
-            taskInformation = taskInformationDao.delete(tskId);
+            taskInformation = taskInformationDao.delete(optionalTaskInformation.get());
             response = setResponseAfterAction(taskInformation, DELETE.getAction());
         } catch (Exception e) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
@@ -157,6 +157,11 @@ public class TaskInformationService extends BaseService implements ITaskInformat
             return response;
         }
         return response;
+    }
+
+    @Override
+    public List<TaskInformationDTO> getListByProject(UUID prjId) {
+        return taskInformationDao.getListByProject(prjId).stream().map(this::convertFromEntityToDTO).collect(Collectors.toList());
     }
     //endregion
 
@@ -217,7 +222,7 @@ public class TaskInformationService extends BaseService implements ITaskInformat
             response.setStatus(DataValidationEnum.VALID_STATUS.status());
             response.setDto(convertFromEntityToDTO(taskInformation));
             response.setSavedIdentity(taskInformation.getTskId());
-            response.setMessage(messageSource.getMessage(successMessageCode, new String[]{taskInformation.getTskName()}, null));
+            response.setMessage(messageSource.getMessage(successMessageCode, new String[]{taskInformation.getTskName(),taskInformation.getTskId().toString()}, null));
         } else {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage(errorMessageCode, null, null));

@@ -48,5 +48,5 @@ public class BaseService {
         beanValidationMessageCodes.setStatus(DataValidationEnum.VALID_STATUS.status());
         return beanValidationMessageCodes;
     }
-    //enregion
+    //endregion
 }

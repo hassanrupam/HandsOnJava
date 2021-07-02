@@ -5,6 +5,7 @@ import com.hassan.main.core.dto.prj.ProjectDTO;
 import com.hassan.main.core.enumurations.DataValidationEnum;
 import com.hassan.main.core.model.prj.Project;
 import com.hassan.main.core.service.BaseService;
+import com.hassan.main.core.service.tsk.ITaskInformationService;
 import com.hassan.main.core.utility.CustomServerResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class ProjectService extends BaseService implements IProjectService {
 
     @Autowired
     private IProjectDao projectDao;
+
+    @Autowired
+    private ITaskInformationService taskInformationService;
     //endregion
 
     //region PUBLIC METHODS
@@ -133,6 +137,11 @@ public class ProjectService extends BaseService implements IProjectService {
         if (!projectOptional.isPresent()) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage("project.notExist", null, null));
+            return response;
+        }
+        if(taskInformationService.getListByProject(prjId).size()>0){
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(messageSource.getMessage("project.projectAlreadyMapped", null, null));
             return response;
         }
         try {

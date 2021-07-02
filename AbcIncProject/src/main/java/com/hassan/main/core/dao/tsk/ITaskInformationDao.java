@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Data Access Object For Task Information
@@ -56,8 +57,18 @@ public interface ITaskInformationDao {
     /**
      * This method serves for Deleting the Task Information with the Provided id
      *
-     * @param tskId Task Id ( Unique Id For the Task Information)
+     * @param taskInformation
      * @return The Deleted Information as TaskInformation Object
      */
-    public TaskInformation delete(Long tskId);
+    public TaskInformation delete(TaskInformation taskInformation);
+
+
+    /**
+     * This method return the List Of Task Information based on passed Project ID
+     *
+     * @param prjId
+     * @return List Of Task Information List Base On Project
+     */
+    public List<TaskInformation> getListByProject(UUID prjId);
+
 }

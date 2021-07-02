@@ -59,6 +59,15 @@ public class ProjectController extends BaseController {
         }
     }
 
+    /**
+     * This method server as the endpoint to save the Project Details
+     * It will provide with proper response and Message upon the Server activity.
+     *
+     * @param projectDTO The Data Transfer Object for Project
+     * @param request HttpServletRequest Object
+     * @return Proper Response As customServerResponse
+     * @throws URISyntaxException If URI not Found
+     */
     @PostMapping(value = "/save")
     public ResponseEntity<?> save(@RequestBody ProjectDTO projectDTO, HttpServletRequest request) throws URISyntaxException {
 
@@ -76,7 +85,15 @@ public class ProjectController extends BaseController {
                 .body(customServerResponse);
     }
 
-
+    /**
+     * This method server as the endpoint to update the Project Details
+     * It will provide with proper response and Message upon the Server activity.
+     *
+     * @param projectDTO The Data Transfer Object for Project
+     * @param request HttpServletRequest Object
+     * @return Proper Response As customServerResponse
+     * @throws URISyntaxException If URI not Found
+     */
     @PutMapping(value = "/update")
     public ResponseEntity<?> update(@RequestBody ProjectDTO projectDTO, HttpServletRequest request) throws URISyntaxException {
 
@@ -93,6 +110,13 @@ public class ProjectController extends BaseController {
                 .body(customServerResponse);
     }
 
+    /**
+     * This method server as the endpoint to Delete the Project Details
+     * It will provide with proper response and Message upon the Server activity.
+     *
+     * @param prjId The Unique Id For The Project
+     * @return Proper Response As customServerResponse
+     */
     @DeleteMapping(value="delete/{prjId}")
     public ResponseEntity<?> delete(@PathVariable("prjId")UUID prjId){
         customServerResponse =  projectService.delete(prjId);

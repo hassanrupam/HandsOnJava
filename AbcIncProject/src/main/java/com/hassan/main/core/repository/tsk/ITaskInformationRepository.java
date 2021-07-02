@@ -6,7 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Repository For Task Information
@@ -18,6 +20,7 @@ import java.util.Optional;
 @Repository
 public interface ITaskInformationRepository extends JpaRepository<TaskInformation,Long> {
     Optional<TaskInformation> findByTskId(Long tskId);
-    TaskInformation deleteByTskId(Long tskId);
+    int deleteByTskId(Long tskId);
     Page<TaskInformation> findAll(Pageable pageable);
+    List<TaskInformation> findByTskProject_PrjId(UUID prjId);
 }

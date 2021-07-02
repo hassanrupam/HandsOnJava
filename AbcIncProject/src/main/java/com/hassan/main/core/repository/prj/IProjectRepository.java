@@ -19,6 +19,6 @@ import java.util.UUID;
 @Repository
 public interface IProjectRepository extends JpaRepository<Project, UUID> {
     Optional<Project> findByPrjId(UUID prjId);
-    Project deleteByPrjId(UUID prjId);
+    int deleteByPrjId(UUID prjId);
     Page<Project> findAll(Pageable pageable);
 }

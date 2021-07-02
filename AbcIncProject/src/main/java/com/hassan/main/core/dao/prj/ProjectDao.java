@@ -91,8 +91,9 @@ public class ProjectDao implements IProjectDao {
     @Transactional
     public Project delete(Project project) {
         try{
+            Project  deletedProject=  project;
             projectRepository.deleteByPrjId(project.getPrjId());
-            return project;
+            return deletedProject;
         }catch(Exception e){
             return null;
         }

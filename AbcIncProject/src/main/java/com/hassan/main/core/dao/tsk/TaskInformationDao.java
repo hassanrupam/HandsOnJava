@@ -8,8 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 /**
  * Data Access Object For Task Information Implementation
  * This Will Serve all the Database Functionality Regarding TaskInformation Entity
@@ -81,12 +84,30 @@ public class TaskInformationDao implements ITaskInformationDao{
     /**
      * This method serves for Deleting the Task Information with the Provided id
      *
-     * @param tskId Task Id ( Unique Id For the Task Information)
+     * @param taskInformation Task Information Entity for Delete
      * @return The Deleted Information as TaskInformation Object
      */
     @Override
-    public TaskInformation delete(Long tskId) {
-        return taskInformationRepository.deleteByTskId(tskId);
+    @Transactional
+    public TaskInformation delete(TaskInformation taskInformation) {
+        try{
+            TaskInformation deletedTaskInformation = taskInformation;
+            taskInformationRepository.deleteByTskId(taskInformation.getTskId());
+            return deletedTaskInformation;
+        }catch (Exception e){
+            return  null;
+        }
+    }
+
+    /**
+     * This method return the List Of Task Information based on passed Project ID
+     *
+     * @param prjId
+     * @return List Of Task Information List Base On Project
+     */
+    @Override
+    public List<TaskInformation> getListByProject(UUID prjId) {
+        return taskInformationRepository.findByTskProject_PrjId(prjId);
     }
     //endregion
 }

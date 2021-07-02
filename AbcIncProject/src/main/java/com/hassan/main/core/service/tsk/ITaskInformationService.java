@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service Layer Interface for the TaskInformation
@@ -64,4 +65,12 @@ public interface ITaskInformationService {
      * @return CustomServerResponse containing the response Message
      */
     public CustomServerResponse delete(Long tskId);
+
+    /**
+     * This Method return list of Task base on the passed Project id
+     *
+     * @param prjId Project Id
+     * @return List of Task Information base on Project
+     */
+    public List<TaskInformationDTO> getListByProject (UUID prjId);
 }
