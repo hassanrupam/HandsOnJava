@@ -1,5 +1,7 @@
 package com.hassan.main.core.service;
 
+import com.hassan.main.core.enumurations.DataValidationEnum;
+import com.hassan.main.core.utility.CustomServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.util.StringUtils;
@@ -15,13 +17,16 @@ import java.util.Set;
 public class BaseService {
 
     //region PROTECTED FIELDS
+    protected String successMessageCode = "";
+    protected String errorMessageCode = "";
+
     @Autowired
     protected MessageSource messageSource;
 
-    protected HashMap<String, Object> response = new HashMap<>();
+    protected CustomServerResponse response = new CustomServerResponse(DataValidationEnum.INVALID_STATUS.status(), "");
 
-    public Map<Boolean, String> validateDTO(Object _DTO){
-        Map<Boolean,String> beanValidationMessageCodes = new HashMap<>();
+    public CustomServerResponse validateDTO(Object _DTO){
+        CustomServerResponse beanValidationMessageCodes = new CustomServerResponse();
         StringBuilder violationMessageCodes =  new StringBuilder();
 
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -36,7 +41,8 @@ public class BaseService {
         }
 
         if(!StringUtils.isEmpty(violationMessageCodes.toString())){
-            beanValidationMessageCodes.put(false,violationMessageCodes.toString());
+            beanValidationMessageCodes.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            beanValidationMessageCodes.setMessage(violationMessageCodes.toString());
             return beanValidationMessageCodes;
         }
         return beanValidationMessageCodes;

@@ -19,11 +19,12 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"com.hassan.main.core"})
 public class WebConfig implements WebMvcConfigurer {
 
-    /*@Autowired
+    /* commented out due to not needing any other property beside Messages
+    @Autowired
     @Qualifier("appProperties")
-    protected Properties properties;*/
+    protected Properties properties;
 
-   /* @Bean(name = "appProperties")
+    @Bean(name = "appProperties")
     public PropertiesFactoryBean environmentProperties(){
         PropertiesFactoryBean propertiesFactoryBean =  new PropertiesFactoryBean();
         propertiesFactoryBean.setLocations(

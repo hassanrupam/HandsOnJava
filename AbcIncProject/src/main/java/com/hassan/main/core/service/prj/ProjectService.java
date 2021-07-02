@@ -5,12 +5,17 @@ import com.hassan.main.core.dto.prj.ProjectDTO;
 import com.hassan.main.core.enumurations.DataValidationEnum;
 import com.hassan.main.core.model.prj.Project;
 import com.hassan.main.core.service.BaseService;
+import com.hassan.main.core.utility.CustomServerResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.hassan.main.core.enumurations.ServerActionEnum.*;
 
 /**
  * Service Layer Implementation for the Project
@@ -20,16 +25,17 @@ import java.util.*;
  * @Created: 02-07-2021 00.03 PM
  */
 @Service
-public class ProjectService extends BaseService implements IProjectService{
+public class ProjectService extends BaseService implements IProjectService {
 
     //region PRIVATE FIELDS
-    private Project project =  new Project();
+    private Project project = new Project();
 
     @Autowired
     private IProjectDao projectDao;
     //endregion
 
     //region PUBLIC METHODS
+
     /**
      * This method serves as the Data Transfer with Validation from
      * the Data Layer to The Controller Layer
@@ -39,12 +45,7 @@ public class ProjectService extends BaseService implements IProjectService{
      */
     @Override
     public ProjectDTO getById(UUID prjId) {
-        ProjectDTO projectDTO = new ProjectDTO();
-        Optional<Project> projectOptional =  projectDao.getById(prjId);
-        if(projectOptional.isPresent()){
-            projectDTO =  convertFromEntityToDTO(projectOptional.get());
-        }
-        return projectDTO;
+        return  projectDao.getById(prjId).map(this::convertFromEntityToDTO).orElse(new ProjectDTO());
     }
 
     /**
@@ -54,7 +55,7 @@ public class ProjectService extends BaseService implements IProjectService{
      */
     @Override
     public List<ProjectDTO> getList() {
-        return convertFromEntityToDTOList(projectDao.getList());
+        return projectDao.getList().stream().map(this::convertFromEntityToDTO).collect(Collectors.toList());
     }
 
     /**
@@ -65,83 +66,80 @@ public class ProjectService extends BaseService implements IProjectService{
      * @return Page<ProjectDTO> - Page Object Containing List Of Project
      */
     @Override
-    public Page<ProjectDTO> getListAsPage(int page, int size) {
-        return convertFromEntityToDTOPage(projectDao.getListAsPage(page,size));
+    public Page<Project> getListAsPage(int page, int size) {
+        return projectDao.getListAsPage(page,size);
     }
 
     /**
      * This method serves to Validate the Provided Data and Save the Project Information.
      *
      * @param projectDTO Project Information as an Object
-     * @return HashMap<String,Object> containing the response Message
+     * @return CustomServerResponse containing the response Message
      */
     @Override
-    public HashMap<String, Object> save(ProjectDTO projectDTO){
-        for(Map.Entry<Boolean,String> entry: validateDTO(projectDTO).entrySet()){
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", entry.getValue());
-            return response;
-        }
-        try{
-            project =  convertFromDTOToEntity(projectDTO);
+    public CustomServerResponse save(ProjectDTO projectDTO) {
+
+        try {
+            project = convertFromDTOToEntity(projectDTO);
         } catch (Exception e) {
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", messageSource.getMessage("common.dataConversionError",null,null));
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(messageSource.getMessage("common.dataConversionError", null, null));
             return response;
         }
-        try{
+        try {
             project = projectDao.save(project);
-            if(!Objects.isNull(project)){
-                response.put("status", DataValidationEnum.VALID_STATUS.status());
-                response.put("message", messageSource.getMessage("project.dataSaved", new String[]{project.getPrjName(),project.getPrjId().toString()},null));
-                response.put("dto", project);
-                response.put("saved_identity", project.getPrjId());
-            }else{
-                response.put("status", DataValidationEnum.INVALID_STATUS.status());
-                response.put("message", messageSource.getMessage("project.dataNotSaved",null,null));
-            }
+            response = setResponseAfterAction(project, SAVE.getAction());
         } catch (Exception e) {
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", messageSource.getMessage("project.dataNotSaved",null,null));
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(e.getMessage());
             return response;
         }
         return response;
     }
 
     @Override
-    public HashMap<String, Object> update(ProjectDTO projectDTO) {
-        for(Map.Entry<Boolean,String> entry: validateDTO(projectDTO).entrySet()){
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", entry.getValue());
+    public CustomServerResponse update(ProjectDTO projectDTO) {
+        response = validateDTO(projectDTO);
+        if (response.getStatus().equals(DataValidationEnum.INVALID_STATUS.status())) {
             return response;
         }
-        if(!projectDao.getById(projectDTO.getPrjId()).isPresent()){
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", messageSource.getMessage("project.notExist",null,null));
+        if (!projectDao.getById(projectDTO.getPrjId()).isPresent()) {
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(messageSource.getMessage("project.notExist", null, null));
             return response;
         }
 
-        try{
-            project =  convertFromDTOToEntity(projectDTO);
+        try {
+            project = convertFromDTOToEntity(projectDTO);
         } catch (Exception e) {
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", messageSource.getMessage("common.dataConversionError",null,null));
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(messageSource.getMessage("common.dataConversionError", null, null));
             return response;
         }
-        try{
+        try {
             project = projectDao.save(project);
-            if(!Objects.isNull(project)){
-                response.put("status", DataValidationEnum.VALID_STATUS.status());
-                response.put("message", messageSource.getMessage("project.dataUpdated", new String[]{project.getPrjName()},null));
-                response.put("dto", project);
-                response.put("saved_identity", project.getPrjId());
-            }else{
-                response.put("status", DataValidationEnum.INVALID_STATUS.status());
-                response.put("message", messageSource.getMessage("project.dataNotUpdated",null,null));
-            }
+            response = setResponseAfterAction(project, UPDATE.getAction());
         } catch (Exception e) {
-            response.put("status", DataValidationEnum.INVALID_STATUS.status());
-            response.put("message", messageSource.getMessage("project.dataUpdated",null,null));
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(e.getMessage());
+            return response;
+        }
+        return response;
+    }
+
+    @Override
+    public CustomServerResponse delete(UUID prjId) {
+        if (!projectDao.getById(prjId).isPresent()) {
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(messageSource.getMessage("project.notExist", null, null));
+            return response;
+        }
+        try {
+            project = projectDao.delete(prjId);
+            response = setResponseAfterAction(project, DELETE.getAction());
+        } catch (Exception e) {
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(e.getMessage());
             return response;
         }
         return response;
@@ -149,15 +147,16 @@ public class ProjectService extends BaseService implements IProjectService{
     //endregion
 
     //region PRIVATE METHODS
+
     /**
      * This method copies all values from the Entity to the Data Transfer Object
      *
      * @param project Entity Object Of Project
      * @return ProjectDTO - Data Transfer Object Of Project
      */
-    private ProjectDTO convertFromEntityToDTO(Project project){
-        ProjectDTO projectDTO =  new ProjectDTO();
-        BeanUtils.copyProperties(project,projectDTO);
+    private ProjectDTO convertFromEntityToDTO(Project project) {
+        ProjectDTO projectDTO = new ProjectDTO();
+        BeanUtils.copyProperties(project, projectDTO);
         return projectDTO;
     }
 
@@ -167,34 +166,49 @@ public class ProjectService extends BaseService implements IProjectService{
      * @param projectDTO Data Transfer Object Of Project
      * @return Entity Object Of Project
      */
-    private Project convertFromDTOToEntity(ProjectDTO projectDTO){
+    private Project convertFromDTOToEntity(ProjectDTO projectDTO) {
         Project project = new Project();
-        BeanUtils.copyProperties(projectDTO,project);
+        BeanUtils.copyProperties(projectDTO, project);
         return project;
     }
 
     /**
-     * This method copies all values from the List of Entity to the Data Transfer Object List
+     * This method sets the proper response according to the Server Action
+     * and by the Fact, if the Repository is able to Persist the requested action or not
      *
-     * @param projectList List of Entity Object Of Project
-     * @return List<ProjectDTO>  projectDTOList - List of Data Transfer Object Of Project
+     * @param project      the entity object to check if the repository has returned with valid response
+     * @param serverAction Character Stating the Flags for  either Save, Update Or Delete Action is Occurring
+     * @return
      */
-    private List<ProjectDTO> convertFromEntityToDTOList(List<Project> projectList){
-        List<ProjectDTO> projectDTOList =  new ArrayList<>();
-        BeanUtils.copyProperties(projectList,projectDTOList);
-        return projectDTOList;
-    }
-
-    /**
-     * This method copies all values from the List of Entity to the Data Transfer Object List
-     *
-     * @param projectPage Page containing List of Entity Object Of Project
-     * @return  Page<ProjectDTO> projectDTOPage -Page containing List of Data Transfer Object Of Project
-     */
-    private Page<ProjectDTO> convertFromEntityToDTOPage(Page<Project> projectPage){
-        Page<ProjectDTO> projectDTOPage = null;
-        BeanUtils.copyProperties(projectPage,projectDTOPage);
-        return projectDTOPage;
+    private CustomServerResponse setResponseAfterAction(Project project, Character serverAction) {
+        //setting Proper Response corresponding to Server Action
+        switch (getServerAction(serverAction)) {
+            case SAVE:
+                successMessageCode = "project.dataSaved";
+                errorMessageCode = "project.dataNotSaved";
+                break;
+            case UPDATE:
+                successMessageCode = "project.dataUpdated";
+                errorMessageCode = "project.dataNotUpdated";
+                break;
+            case DELETE:
+                successMessageCode = "project.dataDeleted";
+                errorMessageCode = "project.dataNotDeleted";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + serverAction);
+        }
+        //Checking if the Repository returned Full object With Response to check if the action is persisted
+        if (!Objects.isNull(project)) {
+            response.setStatus(DataValidationEnum.VALID_STATUS.status());
+            response.setDto(convertFromEntityToDTO(project));
+            response.setSavedIdentity(project.getPrjId());
+            response.setMessage(messageSource.getMessage(successMessageCode, new String[]{project.getPrjName()}, null));
+        } else {
+            response.setStatus(DataValidationEnum.INVALID_STATUS.status());
+            response.setMessage(messageSource.getMessage(errorMessageCode, null, null));
+        }
+        return response;
     }
     //endregion
 }

@@ -1,6 +1,8 @@
 package com.hassan.main.core.service.prj;
 
 import com.hassan.main.core.dto.prj.ProjectDTO;
+import com.hassan.main.core.model.prj.Project;
+import com.hassan.main.core.utility.CustomServerResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.HashMap;
@@ -39,22 +41,31 @@ public interface IProjectService {
      * @param size Total Size
      * @return
      */
-    public Page<ProjectDTO> getListAsPage(int page,int size);
+    public Page<Project>  getListAsPage(int page, int size);
 
     /**
      * This method serves to Validate the Provided Data and Save the Project Information.
      *
      * @param projectDTO Project Information as an Object
-     * @return HashMap<String,Object> containing the response Message
+     * @return CustomServerResponse containing the response Message
      */
-    public HashMap<String,Object> save(ProjectDTO projectDTO);
+    public CustomServerResponse save(ProjectDTO projectDTO);
 
     /**
      * This method serves to Validate the Provided Data and Update the Project Information.
      *
      * @param projectDTO Project Information as an Object
-     * @return HashMap<String,Object> containing the response Message
+     * @return CustomServerResponse containing the response Message
      */
-    public HashMap<String,Object> update(ProjectDTO projectDTO);
+    public CustomServerResponse update(ProjectDTO projectDTO);
+
+
+    /**
+     * This method serves to Validate the Provided Data and delete the Project Information.
+     *
+     * @param prjId Project Id (Unique Id For the Project)
+     * @return CustomServerResponse containing the response Message
+     */
+    public CustomServerResponse delete(UUID prjId);
 
 }
