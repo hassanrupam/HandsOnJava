@@ -82,7 +82,10 @@ public class ProjectService extends BaseService implements IProjectService {
      */
     @Override
     public CustomServerResponse save(ProjectDTO projectDTO) {
-
+        response = validateDTO(projectDTO);
+        if (response.getStatus().equals(DataValidationEnum.INVALID_STATUS.status())) {
+            return response;
+        }
         try {
             project = convertFromDTOToEntity(projectDTO);
         } catch (Exception e) {
@@ -133,13 +136,14 @@ public class ProjectService extends BaseService implements IProjectService {
 
     @Override
     public CustomServerResponse delete(UUID prjId) {
-        Optional<Project> projectOptional =  projectDao.getById(prjId);
+
+        Optional<Project> projectOptional = projectDao.getById(prjId);
         if (!projectOptional.isPresent()) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage("project.notExist", null, null));
             return response;
         }
-        if(taskInformationService.getListByProject(prjId).size()>0){
+        if (taskInformationService.getListByProject(prjId).size() > 0) {
             response.setStatus(DataValidationEnum.INVALID_STATUS.status());
             response.setMessage(messageSource.getMessage("project.projectAlreadyMapped", null, null));
             return response;
